@@ -2,7 +2,7 @@
 
 ## Project Title : An Agentic AI Operating System for Career Development
 
-# Overview
+## 📖 Overview
 CareerPilot AI is an intelligent multi-agent platform designed to assist students throughout their placement journey. Instead of using a single AI chatbot, the system coordinates multiple specialized AI agents to perform resume analysis, job matching, interview preparation, personalized learning roadmap generation, and progress tracking. The platform leverages Agentic AI, Retrieval-Augmented Generation (RAG), and Large Language Models to provide personalized and context-aware career guidance.
 
 # Problem Statement
@@ -18,7 +18,7 @@ Students often rely on multiple disconnected platforms for resume building, inte
 - Track learning progress
 - Provide intelligent career recommendations
 
-## Features
+## ✨ Features
 
 - AI Resume Analyzer
 - ATS Score Generator
