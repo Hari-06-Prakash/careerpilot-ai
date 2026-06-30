@@ -1,7 +1,38 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import AuthLayout from "../../layouts/AuthLayout";
+import { loginUser } from "../../services/authService";
 
 export default function LoginPage() {
+  const navigate = useNavigate();
+
+const [email, setEmail] = useState("");
+const [password, setPassword] = useState("");
+const [loading, setLoading] = useState(false);
+
+const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    try {
+        setLoading(true);
+
+        const data = await loginUser(email, password);
+
+        localStorage.setItem("token", data.access_token);
+
+        alert("Login Successful!");
+
+        navigate("/dashboard");
+
+    } catch (error: any) {
+        alert(
+            error.response?.data?.detail ??
+            "Login Failed"
+        );
+    } finally {
+        setLoading(false);
+    }
+};
   return (
     <AuthLayout>
       <div className="space-y-8">
@@ -22,7 +53,7 @@ export default function LoginPage() {
 
         {/* Login Form */}
 
-        <form className="space-y-5">
+        <form className="space-y-5" onSubmit={handleSubmit}>
 
           <div>
 
@@ -33,6 +64,8 @@ export default function LoginPage() {
             <input
               type="email"
               placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               className="w-full rounded-xl border border-slate-700 bg-slate-800 px-4 py-3 text-white outline-none transition focus:border-blue-500"
             />
 
@@ -47,6 +80,8 @@ export default function LoginPage() {
             <input
               type="password"
               placeholder="Enter your password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full rounded-xl border border-slate-700 bg-slate-800 px-4 py-3 text-white outline-none transition focus:border-blue-500"
             />
 
@@ -65,9 +100,10 @@ export default function LoginPage() {
 
           <button
             type="submit"
-            className="w-full rounded-xl bg-blue-600 py-3 font-semibold text-white transition hover:bg-blue-700"
+            disabled={loading}
+            className="w-full rounded-xl bg-blue-600 py-3 font-semibold text-white transition hover:bg-blue-700 disabled:opacity-60"
           >
-            Login
+            {loading ? "Logging in..." : "Login"}
           </button>
 
         </form>
