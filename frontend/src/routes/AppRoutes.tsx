@@ -1,5 +1,5 @@
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-
+import ResumePage from "../pages/resume/ResumePage";
 import LoginPage from "../pages/auth/LoginPage";
 import RegisterPage from "../pages/auth/RegisterPage";
 import ForgotPasswordPage from "../pages/auth/ForgotPasswordPage";
@@ -27,6 +27,15 @@ export default function AppRoutes() {
           element={
             <ProtectedRoute>
               <HomePage />
+            </ProtectedRoute>
+          }
+        />
+        
+        <Route
+          path="/resume"
+          element={
+            <ProtectedRoute>
+              <ResumePage />
             </ProtectedRoute>
           }
         />
