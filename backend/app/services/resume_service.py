@@ -38,7 +38,18 @@ class ResumeService:
         db: Session,
         resume_id: int,
     ):
-        return self.repository.get_resume_by_id(db, resume_id)
+        resume = self.repository.get_resume_by_id(
+            db,
+            resume_id,
+        )
+
+        if not resume:
+            raise HTTPException(
+                status_code=404,
+                detail="Resume not found",
+            )
+
+        return resume
 
     def delete_resume(
         self,

@@ -2,6 +2,7 @@ import os
 import shutil
 
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
+from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
 
 from app.database.connection import get_db
@@ -67,6 +68,7 @@ def get_user_resumes(
 
     return resumes
 
+
 @router.delete("/{resume_id}")
 def delete_resume(
     resume_id: int,
@@ -75,4 +77,31 @@ def delete_resume(
     return resume_service.delete_resume(
         db=db,
         resume_id=resume_id
+    )
+
+
+# ==========================================================
+# NEW FEATURE : VIEW RESUME
+# ==========================================================
+
+@router.get("/view/{resume_id}")
+def view_resume(
+    resume_id: int,
+    db: Session = Depends(get_db),
+):
+
+    resume = resume_service.get_resume(
+        db=db,
+        resume_id=resume_id,
+    )
+
+    if not os.path.exists(resume.filepath):
+        raise HTTPException(
+            status_code=404,
+            detail="Resume file does not exist."
+        )
+
+    return FileResponse(
+        path=resume.filepath,
+        media_type="application/pdf",
     )

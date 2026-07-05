@@ -24,7 +24,6 @@ export const uploadResume = async (
 export const getUserResumes = async (
     userId: number
 ) => {
-
     const response = await api.get(
         `/resume/?user_id=${userId}`
     );
@@ -32,7 +31,28 @@ export const getUserResumes = async (
     return response.data;
 };
 
-export const deleteResume = async (resumeId: number) => {
-    const response = await api.delete(`/resume/${resumeId}`);
+export const deleteResume = async (
+    resumeId: number
+) => {
+    const response = await api.delete(
+        `/resume/${resumeId}`
+    );
+
     return response.data;
+};
+
+
+/* =====================================================
+   VIEW RESUME
+===================================================== */
+
+export const viewResume = (
+    resumeId: number
+) => {
+
+    window.open(
+        `http://127.0.0.1:8000/resume/view/${resumeId}`,
+        "_blank"
+    );
+
 };
