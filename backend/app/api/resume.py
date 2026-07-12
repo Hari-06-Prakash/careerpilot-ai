@@ -7,6 +7,7 @@ from sqlalchemy.orm import Session
 
 from app.database.connection import get_db
 from app.services.resume_service import resume_service
+from app.services.parser_service import parser_service
 
 router = APIRouter(
     prefix="/resume",
@@ -105,3 +106,23 @@ def view_resume(
         path=resume.filepath,
         media_type="application/pdf",
     )
+
+# ==========================================================
+# PARSE RESUME (AI)
+# ==========================================================
+
+@router.post("/parse/{resume_id}")
+def parse_resume(
+    resume_id: int,
+    db: Session = Depends(get_db),
+):
+
+    parsed_resume = parser_service.parse_resume(
+        db=db,
+        resume_id=resume_id,
+    )
+
+    return {
+        "message": "Resume parsed successfully",
+        "data": parsed_resume,
+    }
