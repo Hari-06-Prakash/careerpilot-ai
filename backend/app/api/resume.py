@@ -8,6 +8,7 @@ from sqlalchemy.orm import Session
 from app.database.connection import get_db
 from app.services.resume_service import resume_service
 from app.services.parser_service import parser_service
+from app.ai.resume_analyzer import resume_analyzer
 
 router = APIRouter(
     prefix="/resume",
@@ -126,3 +127,32 @@ def parse_resume(
         "message": "Resume parsed successfully",
         "data": parsed_resume,
     }
+
+@router.post("/ai-test")
+def ai_test():
+
+    sample_resume = """
+    TALASILA DIVYA HARI PRAKASH
+
+    Email: hariprakashtalasila5@gmail.com
+
+    Phone: +91 7416316839
+
+    Skills:
+    Python
+    FastAPI
+    React
+    SQL
+
+    Education:
+    B.Tech Computer Science
+
+    Projects:
+    CareerPilot AI
+    """
+
+    result = resume_analyzer.analyze_resume(
+        sample_resume
+    )
+
+    return result

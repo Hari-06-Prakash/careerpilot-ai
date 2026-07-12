@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import {
     uploadResume,
     getUserResumes,
@@ -11,6 +12,8 @@ export default function ResumeUploader() {
     // Temporary user id
     // Later we will replace this with JWT Authentication
     const USER_ID = 1;
+
+    const navigate = useNavigate();
 
     const [file, setFile] = useState<File | null>(null);
 
@@ -332,6 +335,15 @@ export default function ResumeUploader() {
 
                                         🗑 Delete
 
+                                    </button>
+
+                                    <button
+                                        onClick={() =>
+                                            navigate(`/resume-analysis/${resume.id}`)
+                                        }
+                                        className="rounded-lg bg-purple-600 px-4 py-2 text-white hover:bg-purple-700"
+                                    >
+                                        🤖 Analyze AI
                                     </button>
 
                                 </div>

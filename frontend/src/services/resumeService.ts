@@ -41,6 +41,16 @@ export const deleteResume = async (
     return response.data;
 };
 
+export const analyzeResume = async (
+    resumeId: number
+) => {
+
+    const response = await api.post(
+        `/resume/parse/${resumeId}`
+    );
+
+    return response.data;
+};
 
 /* =====================================================
    VIEW RESUME

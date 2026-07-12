@@ -5,6 +5,7 @@ import RegisterPage from "../pages/auth/RegisterPage";
 import ForgotPasswordPage from "../pages/auth/ForgotPasswordPage";
 import HomePage from "../pages/dashboard/HomePage";
 import ProtectedRoute from "./ProtectedRoute";
+import ResumeAnalysisPage from "../pages/ai/ResumeAnalysisPage";
 
 export default function AppRoutes() {
   return (
@@ -38,6 +39,11 @@ export default function AppRoutes() {
               <ResumePage />
             </ProtectedRoute>
           }
+        />
+
+        <Route
+            path="/resume-analysis/:resumeId"
+            element={<ResumeAnalysisPage />}
         />
 
       </Routes>
